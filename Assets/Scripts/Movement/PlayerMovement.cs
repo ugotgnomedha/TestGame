@@ -36,8 +36,6 @@ namespace Movement
 
         private void Awake()
         {
-            rb = GetComponent<Rigidbody>();
-            col = GetComponent<Collider>();
             mainCam = Camera.main;
         }
 
@@ -57,6 +55,12 @@ namespace Movement
         private void FixedUpdate()
         {
             Move();
+        }
+
+        public void SetUp(Rigidbody rigidBody,Collider collider)
+        {
+            rb = rigidBody;
+            col = collider;
         }
 
         public void ReceiveInput(Vector2 move, bool jump)

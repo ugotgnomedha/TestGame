@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1923193332885167125}
   - component: {fileID: 6594896252009072715}
   - component: {fileID: 3553668007556119986}
+  - component: {fileID: 1568640904936169258}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 510659184737050705}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.72, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -179,6 +180,24 @@ MonoBehaviour:
   Ground:
     serializedVersion: 2
     m_Bits: 8
+--- !u!114 &1568640904936169258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510659184737050705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6766962bc5c31c448d90241aceebca0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::interactionSystem.InterManager
+  hitboxRadius: 0.6
+  InteractMaxDistance: 1
+  minDistanceImprovement: 0.05
+  interactablesMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &9062526540806704188
 GameObject:
   m_ObjectHideFlags: 0

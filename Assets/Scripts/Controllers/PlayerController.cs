@@ -1,4 +1,5 @@
 using InputSystem;
+using interactionSystem;
 using Movement;
 using UnityEngine;
 
@@ -9,11 +10,18 @@ namespace Controller
         //Cache
         private InputSystem_Actions inputActions;
         private PlayerMovement movement;
+        private InterManager interManager;
+        private Rigidbody rb;
+        private Collider col;
 
         private void Awake()
         {
+            rb = GetComponent<Rigidbody>();
+            col = GetComponent<Collider>();
             inputActions = new InputSystem_Actions();
+            interManager = GetComponent<InterManager>();
             movement = GetComponent<PlayerMovement>();
+            movement.SetUp(rb,col);
         }
 
         private void Start()
@@ -29,6 +37,11 @@ namespace Controller
 
             // Pass input into movement script
             movement.ReceiveInput(moveInput, jumpPressed);
+
+            if (inputActions.Player.Interact.WasPressedThisFrame())
+            {
+                interManager.Interact(col,this);
+            }
         }
 
         private void OnEnable()

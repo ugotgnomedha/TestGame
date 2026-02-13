@@ -1,5 +1,6 @@
 using InputSystem;
 using interactionSystem;
+using InventorySystem;
 using Movement;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace Controller
         private InputSystem_Actions inputActions;
         private PlayerMovement movement;
         private InterManager interManager;
+        public Inventory inventory;
         private Rigidbody rb;
         private Collider col;
 
@@ -20,6 +22,7 @@ namespace Controller
             col = GetComponent<Collider>();
             inputActions = new InputSystem_Actions();
             interManager = GetComponent<InterManager>();
+            inventory = GetComponent<Inventory>();
             movement = GetComponent<PlayerMovement>();
             movement.SetUp(rb,col);
         }
@@ -41,6 +44,11 @@ namespace Controller
             if (inputActions.Player.Interact.WasPressedThisFrame())
             {
                 interManager.Interact(col,this);
+            }
+
+            if (inputActions.Player.DropItem.WasPressedThisFrame())
+            {
+                inventory.DropItem();
             }
         }
 

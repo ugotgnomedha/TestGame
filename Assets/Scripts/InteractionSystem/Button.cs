@@ -1,4 +1,5 @@
 using Controller;
+using InventorySystem;
 using UnityEngine;
 
 namespace interactionSystem
@@ -6,9 +7,12 @@ namespace interactionSystem
     public class Button : MonoBehaviour, IInteractable
     {
         [SerializeField] string text;
+        [SerializeField] string itemID;
         public void Interact(PlayerController controller)
         {
+            ItemRegistery.instance.AddItem(itemID, controller.inventory);
             Debug.Log(text);
+            Destroy(gameObject);
         }
     }
 }

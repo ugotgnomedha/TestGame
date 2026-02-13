@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace interactionSystem
 {
-    public class Button : MonoBehaviour, IInteractable
+    public class GiveItem : MonoBehaviour, IInteractable
     {
         [SerializeField] string text;
         [SerializeField] string itemID;

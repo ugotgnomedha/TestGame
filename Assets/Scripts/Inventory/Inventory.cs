@@ -1,4 +1,5 @@
 using UnityEngine;
+using Usable;
 
 namespace InventorySystem
 {
@@ -8,6 +9,17 @@ namespace InventorySystem
         [SerializeField] private Transform hand_Right;
         private GameObject equipedItem_Right;
         private BaseItemData equipedData_Right;
+
+        public void UseEquipedItem()
+        {
+            IUsable usable = null;
+            if (equipedItem_Right != null && equipedData_Right != null)
+            {
+                equipedItem_Right.TryGetComponent<IUsable>(out usable);
+                if (usable != null)
+                    usable.Use();
+            }
+        }
 
         public void AddItem(BaseItemData item)
         {

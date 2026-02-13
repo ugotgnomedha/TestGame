@@ -50,6 +50,11 @@ namespace Controller
             {
                 inventory.DropItem();
             }
+
+            if (inputActions.Player.Attack.WasPressedThisFrame())
+            {
+                inventory.UseEquipedItem();
+            }
         }
 
         private void OnEnable()

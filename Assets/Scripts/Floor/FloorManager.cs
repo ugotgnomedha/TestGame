@@ -3,95 +3,98 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class FloorManager : MonoBehaviour
+namespace Floor
 {
-    [Header("Drag your FloorDatabase here")]
-    public FloorDatabase floorDatabase;
-
-    private List<string> visitedFloors = new List<string>();
-    private string currentFloor = "";
-
-    private bool isTransitioning = false;
-
-    public void OnElevatorButtonPressed()
+    public class FloorManager : MonoBehaviour
     {
-        if (isTransitioning) return;
+        [Header("Drag your FloorDatabase here")]
+        public FloorDatabase floorDatabase;
 
-        if (visitedFloors.Count >= floorDatabase.floorSceneNames.Count)
+        private List<string> visitedFloors = new List<string>();
+        private string currentFloor = "";
+
+        private bool isTransitioning = false;
+
+        public void OnElevatorButtonPressed()
         {
-            Debug.Log("All floors visited");
-            return;
+            if (isTransitioning) return;
+
+            if (visitedFloors.Count >= floorDatabase.floorSceneNames.Count)
+            {
+                Debug.Log("All floors visited");
+                return;
+            }
+
+            StartCoroutine(ElevatorSequence());
         }
 
-        StartCoroutine(ElevatorSequence());
-    }
-
-    IEnumerator ElevatorSequence()
-    {
-        isTransitioning = true;
-
-        // Debug.Log("Elevator button pressed");
-
-        float timer = 3f;
-
-        while (timer > 0)
+        IEnumerator ElevatorSequence()
         {
-            Debug.Log("Timer: " + timer);
+            isTransitioning = true;
+
+            // Debug.Log("Elevator button pressed");
+
+            float timer = 3f;
+
+            while (timer > 0)
+            {
+                Debug.Log("Timer: " + timer);
+                yield return new WaitForSeconds(1f);
+                timer--;
+            }
+
+            // Debug.Log("Timer finished");
+            // Debug.Log("Doors closing");
+
             yield return new WaitForSeconds(1f);
-            timer--;
+
+            yield return StartCoroutine(LoadRandomFloor());
+
+            isTransitioning = false;
         }
 
-        // Debug.Log("Timer finished");
-        // Debug.Log("Doors closing");
+        IEnumerator LoadRandomFloor()
+        {
+            if (!string.IsNullOrEmpty(currentFloor))
+            {
+                yield return SceneManager.UnloadSceneAsync(currentFloor);
+            }
 
-        yield return new WaitForSeconds(1f);
+            List<string> availableFloors = new List<string>();
 
-        yield return StartCoroutine(LoadRandomFloor());
+            foreach (var floor in floorDatabase.floorSceneNames)
+            {
+                if (!visitedFloors.Contains(floor))
+                    availableFloors.Add(floor);
+            }
 
-        isTransitioning = false;
+            if (availableFloors.Count == 0)
+            {
+                Debug.Log("All floors visited");
+                yield break;
+            }
+
+            string nextFloor = availableFloors[Random.Range(0, availableFloors.Count)];
+
+            visitedFloors.Add(nextFloor);
+            currentFloor = nextFloor;
+
+            Debug.Log("Loading: " + nextFloor);
+
+            yield return SceneManager.LoadSceneAsync(nextFloor, LoadSceneMode.Additive);
+
+            // Debug.Log("Doors opening");
+
+            if (visitedFloors.Count >= floorDatabase.floorSceneNames.Count)
+            {
+                Debug.Log("All floors visited");
+            }
+        }
+
+        public bool IsTransitioning()
+        {
+            return isTransitioning;
+        }
+
     }
-
-    IEnumerator LoadRandomFloor()
-    {
-        if (!string.IsNullOrEmpty(currentFloor))
-        {
-            yield return SceneManager.UnloadSceneAsync(currentFloor);
-        }
-
-        List<string> availableFloors = new List<string>();
-
-        foreach (var floor in floorDatabase.floorSceneNames)
-        {
-            if (!visitedFloors.Contains(floor))
-                availableFloors.Add(floor);
-        }
-
-        if (availableFloors.Count == 0)
-        {
-            Debug.Log("All floors visited");
-            yield break;
-        }
-
-        string nextFloor = availableFloors[Random.Range(0, availableFloors.Count)];
-
-        visitedFloors.Add(nextFloor);
-        currentFloor = nextFloor;
-
-        Debug.Log("Loading: " + nextFloor);
-
-        yield return SceneManager.LoadSceneAsync(nextFloor, LoadSceneMode.Additive);
-
-        // Debug.Log("Doors opening");
-
-        if (visitedFloors.Count >= floorDatabase.floorSceneNames.Count)
-        {
-            Debug.Log("All floors visited");
-        }
-    }
-
-    public bool IsTransitioning()
-    {
-        return isTransitioning;
-    }
-
 }

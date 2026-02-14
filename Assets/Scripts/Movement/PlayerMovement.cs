@@ -5,6 +5,7 @@ namespace Movement
     public class PlayerMovement : MonoBehaviour
     {
         private float speed;
+        private bool isRunning;
 
         //Cache
         private Camera mainCam;
@@ -22,6 +23,7 @@ namespace Movement
         //Move
         [SerializeField] private float groundWalkSpeed = 25;
         [SerializeField] private float airSpeed = 6;
+        [SerializeField] private float runMultiplier = 1.5f;
 
         //Jump
         [SerializeField] private float jumpForce = 8;
@@ -42,6 +44,7 @@ namespace Movement
         private void Update()
         {
             speed = isGrounded ? groundWalkSpeed : airSpeed;
+            speed = isRunning ? speed * runMultiplier : speed;
 
             ApplyGravity();
 
@@ -63,10 +66,11 @@ namespace Movement
             col = collider;
         }
 
-        public void ReceiveInput(Vector2 move, bool jump)
+        public void ReceiveInput(Vector2 move, bool jump , bool run)
         {
             moveInput = move;
             jumpPressed = jump;
+            isRunning = run;
         }
 
         public void ApplyGravity()

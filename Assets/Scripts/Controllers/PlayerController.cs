@@ -37,9 +37,10 @@ namespace Controller
             // Read input
             Vector2 moveInput = inputActions.Player.Move.ReadValue<Vector2>();
             bool jumpPressed = inputActions.Player.Jump.WasPressedThisFrame();
+            bool runPressed = inputActions.Player.Sprint.IsPressed();
 
             // Pass input into movement script
-            movement.ReceiveInput(moveInput, jumpPressed);
+            movement.ReceiveInput(moveInput, jumpPressed, runPressed);
 
             if (inputActions.Player.Interact.WasPressedThisFrame())
             {

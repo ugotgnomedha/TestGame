@@ -177,8 +177,9 @@ MonoBehaviour:
   useRotSpeed: 0
   groundWalkSpeed: 25
   airSpeed: 6
-  jumpForce: 16
-  gravity: 2.5
+  runMultiplier: 1.5
+  jumpForce: 12
+  gravity: 4
   groundCheckRadius: 0.1
   Ground:
     serializedVersion: 2

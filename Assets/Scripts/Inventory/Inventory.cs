@@ -5,17 +5,22 @@ namespace InventorySystem
 {
     public class Inventory : MonoBehaviour
     {
-        [SerializeField] private Transform drop_Pos;
-        [SerializeField] private Transform hand_Right;
-        private GameObject equipedItem_Right;
-        private BaseItemData equipedData_Right;
+        [SerializeField] private Transform hand;
+        private GameObject equipedItem;
+        private BaseItemData equipedData;
+        private bool isEquiped;
+
+        private void Update()
+        {
+            isEquiped = (equipedItem != null && equipedData != null);
+        }
 
         public void UseEquipedItem()
         {
             IUsable usable = null;
-            if (equipedItem_Right != null && equipedData_Right != null)
+            if (isEquiped)
             {
-                equipedItem_Right.TryGetComponent<IUsable>(out usable);
+                equipedItem.TryGetComponent<IUsable>(out usable);
                 if (usable != null)
                     usable.Use();
             }
@@ -24,24 +29,24 @@ namespace InventorySystem
         public void AddItem(BaseItemData item)
         {
             GameObject itemToAdd = null;
-            if (equipedItem_Right == null)
+            if (!isEquiped)
             {
-                itemToAdd = Instantiate(item.itemPrefab, hand_Right, false);
+                itemToAdd = Instantiate(item.itemPrefab, hand, false);
                 itemToAdd.transform.localPosition = Vector3.zero;
-                equipedItem_Right = itemToAdd;
-                equipedData_Right = item;
+                equipedItem = itemToAdd;
+                equipedData = item;
             }
         }
 
         public void DropItem()
         {
             GameObject itemToDrop = null;
-            if (equipedItem_Right != null)
+            if (isEquiped)
             {
-                itemToDrop = Instantiate(equipedData_Right.DropPrefab, drop_Pos.transform.position,Quaternion.identity);
-                Destroy(equipedItem_Right.gameObject);
-                equipedItem_Right = null;
-                equipedData_Right = null;
+                itemToDrop = Instantiate(equipedData.DropPrefab, hand.transform.position,Quaternion.identity);
+                Destroy(equipedItem.gameObject);
+                equipedItem = null;
+                equipedData = null;
             }
         }
     }

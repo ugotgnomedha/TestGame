@@ -256,6 +256,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &126073594 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5060220970389893538, guid: 74feed277b2bf91499574587e240b752, type: 3}
+  m_PrefabInstance: {fileID: 562363951}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &198810294 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5891966237929434955, guid: 13c50bc05d8564466a56e4dc9cbdcac1, type: 3}
@@ -313,14 +318,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1796297357687436463, guid: b8e7f5d49c16fdc4c986c063e23b000f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.53
+      objectReference: {fileID: 0}
     - target: {fileID: 8411473191938684636, guid: b8e7f5d49c16fdc4c986c063e23b000f, type: 3}
-      propertyPath: drop_Pos
+      propertyPath: hand
       value: 
       objectReference: {fileID: 2104192046}
     - target: {fileID: 8411473191938684636, guid: b8e7f5d49c16fdc4c986c063e23b000f, type: 3}
-      propertyPath: hand_Right
+      propertyPath: dropPos
       value: 
-      objectReference: {fileID: 2104192046}
+      objectReference: {fileID: 126073594}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -648,21 +657,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3812017965324860637, guid: 74feed277b2bf91499574587e240b752, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.59
-      objectReference: {fileID: 0}
-    - target: {fileID: 3812017965324860637, guid: 74feed277b2bf91499574587e240b752, type: 3}
+    - target: {fileID: 5060220970389893538, guid: 74feed277b2bf91499574587e240b752, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.97
+      value: 0.83
       objectReference: {fileID: 0}
     - target: {fileID: 6772313859034815310, guid: 74feed277b2bf91499574587e240b752, type: 3}
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 5166936971065548510, guid: 74feed277b2bf91499574587e240b752, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74feed277b2bf91499574587e240b752, type: 3}
@@ -880,7 +884,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1305867395
 Transform:

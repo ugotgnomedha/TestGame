@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3553668007556119986}
   - component: {fileID: 1568640904936169258}
   - component: {fileID: 8411473191938684636}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,8 +214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b5c3bb3f8aeb1c4b8a7930b9b8a6f79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventorySystem.Inventory
-  drop_Pos: {fileID: 2646997605290576657}
-  hand_Right: {fileID: 0}
+  hand: {fileID: 0}
+  dropPos: {fileID: 0}
 --- !u!1 &5264128118257166460
 GameObject:
   m_ObjectHideFlags: 0

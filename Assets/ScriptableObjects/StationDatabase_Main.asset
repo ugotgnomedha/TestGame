@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89d043417b330482b96ea625c88844a9, type: 3}
-  m_Name: FloorDatabase_Main
+  m_Name: StationDatabase_Main
   m_EditorClassIdentifier: Assembly-CSharp::FloorDatabase
-  floorSceneNames:
-  - Floor_1
-  - Floor_2
-  - Floor_3
+  stationSceneNames:
+  - Station_1
+  - Station_2
+  - Station_3

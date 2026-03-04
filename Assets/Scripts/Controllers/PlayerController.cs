@@ -3,18 +3,24 @@ using interactionSystem;
 using InventorySystem;
 using Movement;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Controller
 {
     public class PlayerController : MonoBehaviour
     {
-        //Cache
+        // Cache
         private InputSystem_Actions inputActions;
         private PlayerMovement movement;
         private InterManager interManager;
         public Inventory inventory;
         private Rigidbody rb;
         private Collider col;
+
+        [Header("FPS UI Raycast")]
+        [SerializeField] private Camera playerCamera;
+        [SerializeField] private float uiInteractDistance = 5f;
+        [SerializeField] private LayerMask uiLayer;
 
         private void Awake()
         {
@@ -24,7 +30,10 @@ namespace Controller
             interManager = GetComponent<InterManager>();
             inventory = GetComponent<Inventory>();
             movement = GetComponent<PlayerMovement>();
-            movement.SetUp(rb,col);
+            movement.SetUp(rb, col);
+
+            if (playerCamera == null)
+                playerCamera = GetComponentInChildren<Camera>();
         }
 
         private void Start()
@@ -34,27 +43,42 @@ namespace Controller
 
         private void Update()
         {
-            // Read input
+            // Movement input
             Vector2 moveInput = inputActions.Player.Move.ReadValue<Vector2>();
             bool jumpPressed = inputActions.Player.Jump.WasPressedThisFrame();
             bool runPressed = inputActions.Player.Sprint.IsPressed();
-
-            // Pass input into movement script
             movement.ReceiveInput(moveInput, jumpPressed, runPressed);
 
+            // Interact
             if (inputActions.Player.Interact.WasPressedThisFrame())
             {
-                interManager.Interact(col,this);
+                interManager.Interact(col, this);
             }
 
+            // Drop item
             if (inputActions.Player.DropItem.WasPressedThisFrame())
             {
                 inventory.DropItem();
             }
 
+            // Attack / Use item + UI raycast
             if (inputActions.Player.Attack.WasPressedThisFrame())
             {
                 inventory.UseEquipedItem();
+                RaycastUI();
+            }
+        }
+
+        private void RaycastUI()
+        {
+            if (playerCamera == null) return;
+
+            Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            if (Physics.Raycast(ray, out RaycastHit hit, uiInteractDistance, uiLayer))
+            {
+                Button button = hit.collider.GetComponent<Button>();
+                if (button != null)
+                    button.onClick.Invoke();
             }
         }
 

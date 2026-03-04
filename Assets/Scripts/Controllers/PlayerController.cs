@@ -1,6 +1,5 @@
 using InputSystem;
 using interactionSystem;
-using InventorySystem;
 using Movement;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +12,6 @@ namespace Controller
         private InputSystem_Actions inputActions;
         private PlayerMovement movement;
         private InterManager interManager;
-        public Inventory inventory;
         private Rigidbody rb;
         private Collider col;
 
@@ -28,7 +26,6 @@ namespace Controller
             col = GetComponent<Collider>();
             inputActions = new InputSystem_Actions();
             interManager = GetComponent<InterManager>();
-            inventory = GetComponent<Inventory>();
             movement = GetComponent<PlayerMovement>();
             movement.SetUp(rb, col);
 
@@ -53,19 +50,6 @@ namespace Controller
             if (inputActions.Player.Interact.WasPressedThisFrame())
             {
                 interManager.Interact(col, this);
-            }
-
-            // Drop item
-            if (inputActions.Player.DropItem.WasPressedThisFrame())
-            {
-                inventory.DropItem();
-            }
-
-            // Attack / Use item + UI raycast
-            if (inputActions.Player.Attack.WasPressedThisFrame())
-            {
-                inventory.UseEquipedItem();
-                RaycastUI();
             }
         }
 

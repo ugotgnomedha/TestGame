@@ -16,7 +16,8 @@ GameObject:
   - component: {fileID: 6594896252009072715}
   - component: {fileID: 3553668007556119986}
   - component: {fileID: 1568640904936169258}
-  m_Layer: 0
+  - component: {fileID: 3357380756871125755}
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,6 +205,23 @@ MonoBehaviour:
   interactablesMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &3357380756871125755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510659184737050705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e49cede4c92f804eae793bc99793a33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Inventory.PlayerPickUpDrop
+  objectGrabPoint: {fileID: 0}
+  layermasksToAvoid:
+    serializedVersion: 2
+    m_Bits: 128
+  LerpSpeed: 10
 --- !u!1 &9062526540806704188
 GameObject:
   m_ObjectHideFlags: 0

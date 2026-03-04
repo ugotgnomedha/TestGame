@@ -1,5 +1,6 @@
 using InputSystem;
 using interactionSystem;
+using Inventory;
 using Movement;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ namespace Controller
         private InputSystem_Actions inputActions;
         private PlayerMovement movement;
         private InterManager interManager;
+        private PlayerPickUpDrop playerPickUpDrop;
         private Rigidbody rb;
         private Collider col;
 
@@ -26,6 +28,7 @@ namespace Controller
             col = GetComponent<Collider>();
             inputActions = new InputSystem_Actions();
             interManager = GetComponent<InterManager>();
+            playerPickUpDrop = GetComponent<PlayerPickUpDrop>();
             movement = GetComponent<PlayerMovement>();
             movement.SetUp(rb, col);
 
@@ -51,6 +54,8 @@ namespace Controller
             {
                 interManager.Interact(col, this);
             }
+            RaycastUI();
+
         }
 
         private void RaycastUI()
@@ -64,6 +69,11 @@ namespace Controller
                 if (button != null)
                     button.onClick.Invoke();
             }
+        }
+
+        public PlayerPickUpDrop givePPUD()
+        {
+            return playerPickUpDrop;
         }
 
         private void OnEnable()

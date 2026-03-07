@@ -10,5 +10,10 @@ namespace Inventory
         {
             controller.givePPUD().setItem(gameObject);
         }
+
+        public void Use()
+        {
+            Debug.Log("Item Used");
+        }
     }
 }

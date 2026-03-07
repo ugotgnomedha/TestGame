@@ -54,6 +54,16 @@ namespace Controller
             {
                 interManager.Interact(col, this);
             }
+
+            if (inputActions.Player.DropItem.WasPressedThisFrame())
+            {
+                playerPickUpDrop.dropItem();
+            }
+
+            if (inputActions.Player.Attack.WasPressedThisFrame())
+            {
+                playerPickUpDrop.useEquippedItem();
+            }
             RaycastUI();
 
         }
